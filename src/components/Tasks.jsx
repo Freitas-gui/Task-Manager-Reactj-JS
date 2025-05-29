@@ -7,6 +7,7 @@ function Tasks({ tasks, onTaskClick, onTrashClick }) {
 
   function showTask(task) {
     const query = new URLSearchParams();
+    query.set("id", task.id);
     query.set("title", task.title);
     query.set("description", task.description);
 

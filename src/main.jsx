@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TaskPage from "./pages/TaskPage.jsx";
+import TaskEditPage from "./pages/TaskEditPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/task",
     element: <TaskPage />,
+  },
+  {
+    path: "/task/edit",
+    element: <TaskEditPage />,
   },
 ]);
 
