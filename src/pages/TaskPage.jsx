@@ -1,14 +1,15 @@
-import { ChevronLeftIcon, EditIcon } from "lucide-react";
+import { BoxIcon, ChevronLeftIcon, DotIcon, EditIcon } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Title from "../components/Title";
 import Button from "../components/Button";
+import { useState } from "react";
 
 function TaskPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const title = searchParams.get("title");
-  const description = searchParams.get("description");
+  const [tasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []);
+  const task = tasks.find((task) => task.id == id);
 
   function editTask() {
     const query = new URLSearchParams();
@@ -30,9 +31,16 @@ function TaskPage() {
         </div>
         <div className="bg-slate-200 p-4 rounded-md">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-slate-600">{title}</h2>
-              <p className="text-slate-600">{description}</p>
+            <div className="w-11/12">
+              <h2 className="text-xl font-bold text-slate-600">{task.title}</h2>
+              <span className="text-slate-600 flex">
+                <DotIcon className="w-4 mw-4 min-w-4" />
+                Categoria: {task.category}
+              </span>
+              <span className="text-slate-600 flex">
+                <DotIcon className="w-4 mw-4 min-w-4" />
+                Descrição: {task.description}
+              </span>
             </div>
             <Button onClick={() => editTask()}>
               <EditIcon />

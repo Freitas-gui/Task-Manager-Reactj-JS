@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import AddTasks from "./components/AddTasks";
+import FilterTask from "./components/FilterTask";
 import Tasks from "./components/Tasks";
 import Title from "./components/Title";
-import { v4 } from "uuid";
+import { PlusIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [tasks, setTasks] = useState(
@@ -12,6 +13,8 @@ function App() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   // const fetchTasks = async () => {
@@ -45,22 +48,19 @@ function App() {
     setTasks(newTasks);
   }
 
-  function onAddTask(title, description) {
-    var newTask = {
-      id: v4(),
-      title,
-      description,
-      isCompleted: false,
-    };
-
-    setTasks([...tasks, newTask]);
-  }
-
   return (
     <div className="w-screen min-h-screen bg-slate-500 flex justify-center p-6">
       <div className="w-[500px] space-y-5">
-        <Title>Gerenciador de Tarefas</Title>
-        <AddTasks onAddTask={onAddTask} />
+        <div className="flex justify-center relative mb-6">
+          <Title>Gerenciador de Tarefas</Title>
+          <button
+            onClick={() => navigate("/task/create")}
+            className="absolute right-0 top-0 bottom-0 text-slate-100 bg-slate-400 p-2 rounded-md flex items-center justify-center"
+          >
+            <PlusIcon />
+          </button>
+        </div>
+        <FilterTask tasks={tasks} />
         <Tasks
           tasks={tasks}
           onTaskClick={onTaskClick}

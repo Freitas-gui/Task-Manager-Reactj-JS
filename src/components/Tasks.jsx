@@ -15,27 +15,29 @@ function Tasks({ tasks, onTaskClick, onTrashClick }) {
   }
 
   return (
-    <ul className="space-y-4 p-6 bg-slate-200 rounded-md shadow">
-      {tasks.map((task) => (
-        <li key={task.id} className="flex gap-2">
-          <button
-            onClick={() => onTaskClick(task.id)}
-            className={`bg-slate-400 text-white p-2 rounded-md text-left w-full ${
-              task.isCompleted && "line-through"
-            }`}
-          >
-            {task.title}
-          </button>
-          <Button onClick={() => showTask(task)}>
-            <ChevronRightIcon />
-          </Button>
+    <div>
+      <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow">
+        {tasks.map((task) => (
+          <div key={task.id} id={task.id} className="flex gap-2">
+            <button
+              onClick={() => onTaskClick(task.id)}
+              className={`bg-slate-400 text-white p-2 rounded-md text-left w-10/12 ${
+                task.isCompleted && "line-through"
+              }`}
+            >
+              {task.title}
+            </button>
+            <Button onClick={() => showTask(task)}>
+              <ChevronRightIcon />
+            </Button>
 
-          <Button onClick={() => onTrashClick(task.id)}>
-            <TrashIcon />
-          </Button>
-        </li>
-      ))}
-    </ul>
+            <Button onClick={() => onTrashClick(task.id)}>
+              <TrashIcon />
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
